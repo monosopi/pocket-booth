@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="664" viewBox="0 0 384 664" shape-rendering="crispEdges" font-family="IBM Plex Mono, Menlo, Consolas, Courier New, monospace" fill="#000">
+<rect id="paper" width="384" height="664" fill="#fff"/>
+<text id="header-1" x="16" y="40" font-size="17" font-weight="700" text-anchor="start">POCKET BOOTH // REC. #0042</text>
+<text id="header-2" x="16" y="64" font-size="17" font-weight="700" text-anchor="start">DATE: NOV 23 ’26   TIME: 11:50AM</text>
+<g id="photo-01"><rect x="54" y="86" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="181.0" font-size="14" text-anchor="middle">PHOTO 01</text></g>
+<g id="photo-02"><rect x="54" y="288" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="383.0" font-size="14" text-anchor="middle">PHOTO 02</text></g>
+<text x="16" y="512" font-size="16" font-weight="400" text-anchor="start">01 CANDID SMILES</text>
+<text x="368" y="512" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<text x="16" y="534" font-size="16" font-weight="400" text-anchor="start">02 GOOD TIMES</text>
+<text x="368" y="534" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<line x1="16" y1="544" x2="368" y2="544" stroke="#000" stroke-width="2"/>
+<text x="16" y="574" font-size="19" font-weight="700" text-anchor="start">TOTAL:</text>
+<text x="368" y="574" font-size="19" font-weight="700" text-anchor="end">PRICELESS</text>
+<path id="barcode" d="M72 594h2v32h-2zM76 594h3v32h-3zM81 594h3v32h-3zM85 594h2v32h-2zM89 594h3v32h-3zM93 594h1v32h-1zM95 594h1v32h-1zM99 594h1v32h-1zM103 594h2v32h-2zM106 594h2v32h-2zM110 594h1v32h-1zM113 594h2v32h-2zM117 594h1v32h-1zM121 594h1v32h-1zM123 594h1v32h-1zM127 594h1v32h-1zM130 594h1v32h-1zM132 594h1v32h-1zM135 594h1v32h-1zM138 594h1v32h-1zM141 594h1v32h-1zM144 594h1v32h-1zM147 594h2v32h-2zM151 594h1v32h-1zM154 594h2v32h-2zM158 594h1v32h-1zM161 594h1v32h-1zM164 594h1v32h-1zM166 594h2v32h-2zM170 594h1v32h-1zM173 594h1v32h-1zM176 594h2v32h-2zM180 594h1v32h-1zM184 594h2v32h-2zM188 594h1v32h-1zM191 594h1v32h-1zM194 594h2v32h-2zM197 594h2v32h-2zM202 594h1v32h-1zM206 594h2v32h-2zM209 594h2v32h-2zM212 594h3v32h-3zM217 594h2v32h-2zM221 594h1v32h-1zM224 594h2v32h-2zM228 594h2v32h-2zM232 594h2v32h-2zM236 594h2v32h-2zM239 594h2v32h-2zM243 594h1v32h-1zM245 594h2v32h-2zM248 594h1v32h-1zM251 594h2v32h-2zM255 594h1v32h-1zM258 594h1v32h-1zM260 594h1v32h-1zM263 594h1v32h-1zM266 594h1v32h-1zM269 594h3v32h-3zM274 594h2v32h-2zM278 594h3v32h-3zM282 594h1v32h-1zM286 594h1v32h-1zM289 594h3v32h-3zM294 594h1v32h-1zM298 594h3v32h-3zM304 594h1v32h-1zM306 594h3v32h-3zM310 594h2v32h-2z" fill="#000"/>
+<text id="serial" x="192.0" y="638" font-size="9" font-weight="400" text-anchor="middle">NO. 20261123-0042</text>
+</svg>

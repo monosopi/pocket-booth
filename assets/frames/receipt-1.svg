@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="440" viewBox="0 0 384 440" shape-rendering="crispEdges" font-family="IBM Plex Mono, Menlo, Consolas, Courier New, monospace" fill="#000">
+<rect id="paper" width="384" height="440" fill="#fff"/>
+<text id="header-1" x="16" y="40" font-size="17" font-weight="700" text-anchor="start">POCKET BOOTH // REC. #0042</text>
+<text id="header-2" x="16" y="64" font-size="17" font-weight="700" text-anchor="start">DATE: NOV 23 ’26   TIME: 11:50AM</text>
+<g id="photo-01"><rect x="54" y="86" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="181.0" font-size="14" text-anchor="middle">PHOTO 01</text></g>
+<text x="16" y="310" font-size="16" font-weight="400" text-anchor="start">01 CANDID SMILES</text>
+<text x="368" y="310" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<line x1="16" y1="320" x2="368" y2="320" stroke="#000" stroke-width="2"/>
+<text x="16" y="350" font-size="19" font-weight="700" text-anchor="start">TOTAL:</text>
+<text x="368" y="350" font-size="19" font-weight="700" text-anchor="end">PRICELESS</text>
+<path id="barcode" d="M72 370h2v32h-2zM76 370h3v32h-3zM81 370h3v32h-3zM85 370h2v32h-2zM89 370h3v32h-3zM93 370h1v32h-1zM95 370h1v32h-1zM99 370h1v32h-1zM103 370h2v32h-2zM106 370h2v32h-2zM110 370h1v32h-1zM113 370h2v32h-2zM117 370h1v32h-1zM121 370h1v32h-1zM123 370h1v32h-1zM127 370h1v32h-1zM130 370h1v32h-1zM132 370h1v32h-1zM135 370h1v32h-1zM138 370h1v32h-1zM141 370h1v32h-1zM144 370h1v32h-1zM147 370h2v32h-2zM151 370h1v32h-1zM154 370h2v32h-2zM158 370h1v32h-1zM161 370h1v32h-1zM164 370h1v32h-1zM166 370h2v32h-2zM170 370h1v32h-1zM173 370h1v32h-1zM176 370h2v32h-2zM180 370h1v32h-1zM184 370h2v32h-2zM188 370h1v32h-1zM191 370h1v32h-1zM194 370h2v32h-2zM197 370h2v32h-2zM202 370h1v32h-1zM206 370h2v32h-2zM209 370h2v32h-2zM212 370h3v32h-3zM217 370h2v32h-2zM221 370h1v32h-1zM224 370h2v32h-2zM228 370h2v32h-2zM232 370h2v32h-2zM236 370h2v32h-2zM239 370h2v32h-2zM243 370h1v32h-1zM245 370h2v32h-2zM248 370h1v32h-1zM251 370h2v32h-2zM255 370h1v32h-1zM258 370h1v32h-1zM260 370h1v32h-1zM263 370h1v32h-1zM266 370h1v32h-1zM269 370h3v32h-3zM274 370h2v32h-2zM278 370h3v32h-3zM282 370h1v32h-1zM286 370h1v32h-1zM289 370h3v32h-3zM294 370h1v32h-1zM298 370h3v32h-3zM304 370h1v32h-1zM306 370h3v32h-3zM310 370h2v32h-2z" fill="#000"/>
+<text id="serial" x="192.0" y="414" font-size="9" font-weight="400" text-anchor="middle">NO. 20261123-0042</text>
+</svg>

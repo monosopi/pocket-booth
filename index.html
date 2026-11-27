@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pocket Booth</title>
+
+  <!-- One typeface. Falls back to the system font if offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- ES module: deferred automatically, so it runs after the page is parsed. -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- ROOT: data-view switches between "live", "capturing" and "result" -->
+  <div id="app" data-view="live">
+
+    <!-- 1. TOP BAR: centered bold ALL CAPS title, printer pill pinned top-right -->
+    <header id="topbar">
+      <h1 id="app-title">POCKET BOOTH</h1>
+      <button id="bt-pill" class="pill bt-idle" type="button">
+        <span class="pill-dot" aria-hidden="true"></span>
+        <span id="bt-pill-label">Printer</span>
+      </button>
+    </header>
+
+    <!-- 2. CAMERA VIEWFINDER -->
+    <main id="camera-stage">
+      <video id="camera-video" autoplay playsinline muted></video>
+      <p id="camera-message" role="status" hidden></p>
+      <div id="countdown" aria-live="assertive"></div>
+      <div id="flash"></div>
+    </main>
+
+    <!-- 3. SEGMENTED PROGRESS BAR UNDER CAMERA PREVIEW -->
+    <div id="shot-progress" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0" hidden></div>
+
+    <!-- 4. BOTTOM CONTROLS -->
+    <footer id="controls">
+      <div id="shot-selector" role="radiogroup" aria-label="Photos per strip">
+        <button type="button" role="radio" data-shots="1" aria-checked="false">1</button>
+        <button type="button" role="radio" data-shots="2" aria-checked="false">2</button>
+        <button type="button" role="radio" data-shots="3" aria-checked="true">3</button>
+      </div>
+
+      <button id="shutter-btn" type="button" aria-label="Take photos"></button>
+
+      <button id="drawer-toggle" type="button" aria-expanded="false" aria-controls="drawer">Style</button>
+    </footer>
+
+    <!-- 5. STYLE DRAWER (bottom sheet on phones, side panel on larger screens) -->
+    <div id="drawer-backdrop"></div>
+    <aside id="drawer" aria-label="Style options" inert>
+      <div class="drawer-head">
+        <h2>Style</h2>
+        <button id="drawer-close" type="button">Done</button>
+      </div>
+
+      <section class="drawer-section">
+        <h3>Frame</h3>
+        <div id="frame-picker" class="option-row" role="radiogroup" aria-label="Frame style">
+          <button type="button" role="radio" data-frame-style="newsprint" aria-checked="true">
+            <img src="assets/frames/newsprint-3.svg" alt="" loading="lazy">
+            <span>Newsprint</span>
+          </button>
+          <button type="button" role="radio" data-frame-style="receipt" aria-checked="false">
+            <img src="assets/frames/receipt-3.svg" alt="" loading="lazy">
+            <span>Receipt</span>
+          </button>
+          <button type="button" role="radio" data-frame-style="film" aria-checked="false">
+            <img src="assets/frames/film-3.svg" alt="" loading="lazy">
+            <span>Film</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="drawer-section">
+        <h3>Filter</h3>
+        <div id="filter-picker" class="option-list" role="radiogroup" aria-label="Filter">
+          <button type="button" role="radio" data-filter="bw" aria-checked="true">Black &amp; White</button>
+          <button type="button" role="radio" data-filter="sepia" aria-checked="false">Sepia</button>
+          <button type="button" role="radio" data-filter="normal" aria-checked="false">Normal</button>
+        </div>
+      </section>
+    </aside>
+
+    <!-- 6. RESULT: paper feeds out of the printer slot, then actions appear -->
+    <section id="result" aria-label="Your photo strip" inert>
+      <div id="result-scroll">
+        <div id="printer-slot">
+          <div id="receipt-paper">
+            <canvas id="strip-canvas" width="384" height="384"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div id="result-actions">
+        <button id="btn-save" type="button">Save</button>
+        <button id="btn-share" type="button">Share</button>
+        <button id="btn-print" type="button">Print</button>
+        <button id="btn-retake" type="button">Retake</button>
+      </div>
+    </section>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="402" viewBox="0 0 384 402" shape-rendering="crispEdges" font-family="IBM Plex Mono, Menlo, Consolas, Courier New, monospace" fill="#000">
+<rect id="paper" width="384" height="402" fill="#fff"/>
+<text id="header-1" x="16" y="40" font-size="17" font-weight="700" text-anchor="start">35MM CONTACT SHEET // ROLL #42</text>
+<text id="header-2" x="16" y="64" font-size="17" font-weight="700" text-anchor="start">ISO 400 // THERMAL MONO</text>
+<rect id="film-band" x="16" y="82" width="352" height="212" fill="#000"/>
+<g id="sprocket-holes"><rect x="31" y="97" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="97" width="10" height="14" rx="2" fill="#fff"/><rect x="31" y="125" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="125" width="10" height="14" rx="2" fill="#fff"/><rect x="31" y="153" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="153" width="10" height="14" rx="2" fill="#fff"/><rect x="31" y="209" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="209" width="10" height="14" rx="2" fill="#fff"/><rect x="31" y="237" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="237" width="10" height="14" rx="2" fill="#fff"/><rect x="31" y="265" width="10" height="14" rx="2" fill="#fff"/><rect x="343" y="265" width="10" height="14" rx="2" fill="#fff"/></g>
+<text x="36" y="191" font-size="9" font-weight="400" text-anchor="middle" fill="#fff" transform="rotate(-90 36 191)">01</text>
+<text x="348" y="191" font-size="9" font-weight="400" text-anchor="middle" fill="#fff" transform="rotate(90 348 191)">01</text>
+<g id="photo-01"><rect x="56" y="98" width="272" height="180" fill="#fff"/><text x="192.0" y="193.0" font-size="14" text-anchor="middle">PHOTO 01</text></g>
+<text id="title" x="16" y="342" font-size="22" font-weight="400" text-anchor="start" font-family="Titan One, Arial Rounded MT Bold, Arial Black, sans-serif">ARCHIVE PRINT</text>
+<path id="barcode" d="M248 310h1v34h-1zM250 310h1v34h-1zM253 310h2v34h-2zM258 310h2v34h-2zM262 310h1v34h-1zM265 310h1v34h-1zM269 310h1v34h-1zM272 310h2v34h-2zM277 310h1v34h-1zM279 310h1v34h-1zM283 310h2v34h-2zM286 310h2v34h-2zM291 310h1v34h-1zM293 310h1v34h-1zM295 310h2v34h-2zM299 310h3v34h-3zM304 310h2v34h-2zM308 310h3v34h-3zM313 310h2v34h-2zM317 310h2v34h-2zM321 310h3v34h-3zM326 310h2v34h-2zM329 310h2v34h-2zM333 310h3v34h-3zM339 310h2v34h-2zM344 310h3v34h-3zM349 310h1v34h-1zM352 310h2v34h-2zM356 310h3v34h-3zM361 310h2v34h-2zM364 310h1v34h-1zM366 310h2v34h-2z" fill="#000"/>
+<text id="serial" x="308.0" y="356" font-size="9" font-weight="400" text-anchor="middle">NO. 20261123-0042</text>
+<text id="caption" x="16" y="376" font-size="14" font-weight="500" text-anchor="start">NO NEGATIVE // INSTANT</text>
+</svg>

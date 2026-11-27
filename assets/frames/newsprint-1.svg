@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="420" viewBox="0 0 384 420" shape-rendering="crispEdges" font-family="IBM Plex Mono, Menlo, Consolas, Courier New, monospace" fill="#000">
+<rect id="paper" width="384" height="420" fill="#fff"/>
+<line x1="16" y1="24" x2="368" y2="24" stroke="#000" stroke-width="2"/>
+<line x1="16" y1="30" x2="368" y2="30" stroke="#000" stroke-width="2"/>
+<text id="header" x="16" y="58" font-size="18" font-weight="700" text-anchor="start">EDITION 03 // PHOTO PRESS</text>
+<line x1="16" y1="72" x2="368" y2="72" stroke="#000" stroke-width="2"/>
+<line x1="16" y1="78" x2="368" y2="78" stroke="#000" stroke-width="2"/>
+<g id="photo-01"><rect x="16" y="90" width="352" height="228" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="209.0" font-size="14" text-anchor="middle">PHOTO 01</text></g>
+<line x1="16" y1="330" x2="368" y2="330" stroke="#000" stroke-width="2"/>
+<text id="date" x="16" y="382" font-size="28" font-weight="400" text-anchor="start" font-family="Titan One, Arial Rounded MT Bold, Arial Black, sans-serif">NOV 23 ’26</text>
+<path id="barcode" d="M248 346h2v38h-2zM253 346h2v38h-2zM257 346h1v38h-1zM261 346h3v38h-3zM266 346h1v38h-1zM270 346h1v38h-1zM273 346h1v38h-1zM275 346h2v38h-2zM280 346h2v38h-2zM284 346h2v38h-2zM287 346h2v38h-2zM290 346h1v38h-1zM292 346h1v38h-1zM295 346h2v38h-2zM298 346h2v38h-2zM302 346h2v38h-2zM306 346h2v38h-2zM310 346h3v38h-3zM315 346h2v38h-2zM318 346h3v38h-3zM322 346h2v38h-2zM326 346h2v38h-2zM329 346h3v38h-3zM334 346h1v38h-1zM337 346h2v38h-2zM341 346h1v38h-1zM343 346h2v38h-2zM346 346h2v38h-2zM349 346h1v38h-1zM353 346h1v38h-1zM355 346h3v38h-3zM359 346h1v38h-1zM362 346h1v38h-1zM366 346h2v38h-2z" fill="#000"/>
+<text id="serial" x="308.0" y="396" font-size="9" font-weight="400" text-anchor="middle">NO. 20261123-0042</text>
+</svg>

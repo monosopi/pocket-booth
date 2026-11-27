@@ -1,0 +1,975 @@
+/* ==========================================================================
+   Pocket Booth — Paperang Pocket Thermal Printer Stylesheet
+   Monochrome thermal receipt aesthetic, narrow paper roll feed, tactile keys
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Strict monochrome thermal palette */
+  --paper: #f7f6f2;         /* thermal receipt off-white */
+  --paper-bright: #ffffff;  /* crisp paper highlight */
+  --paper-shade: #e7e5df;   /* recessed thermal stock / button shade */
+  --ink: #111111;           /* deep thermal ink black */
+  --ink-soft: #4a4a47;      /* secondary ink */
+  --gray-muted: #767570;    /* subtle gray for labels / metadata */
+  --gray-perf: #a8a69f;     /* subtle gray for perforations / dividers */
+  --gray-shadow: rgba(17, 17, 17, 0.14);
+
+  /* Monospace & pixel typography stack */
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-pixel: "VT323", "Silkscreen", "Press Start 2P", var(--font-mono);
+
+  /* Layout, borders, motion & safe areas */
+  --radius-panel: 12px;
+  --radius-key: 6px;
+  --radius-pill: 999px;
+  --border-ink: 2px solid var(--ink);
+  --border-hairline: 1px solid var(--ink);
+  --border-dashed: 1px dashed var(--gray-perf);
+  --drawer-w: 340px;
+  --ease: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --shadow-tactile: 0 3px 0 var(--ink);
+  --shadow-tactile-press: 0 1px 0 var(--ink);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Viewfinder & thermal paper feed dimensions */
+  --preview-width: min(650px, calc(100vw - 32px), 66dvh);
+  --printer-head-height: 64px;
+  --paper-slot-top: 45px;
+  --paper-final-offset: 10px;
+  --paper-render-width: 278px;
+  --paper-window-height: 420px;
+  --printer-total-height: 510px;
+  --viewer-max-width: min(86vw, 420px);
+  --viewer-max-height: 78dvh;
+}
+
+/* ---------- 1. RESET & BASE ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--paper-shade);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+#receipt-paper:focus-visible {
+  outline: 2px dashed var(--ink);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, p { margin: 0; }
+[hidden] { display: none !important; }
+
+/* ---------- 2. PAPERANG CHASSIS SHELL & TOPBAR ---------- */
+
+#app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(var(--gray-perf) 1px, transparent 1px) 0 0 / 16px 16px,
+    var(--paper);
+  color: var(--ink);
+}
+
+#topbar {
+  position: relative;
+  z-index: 15;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--safe-top) + 56px);
+  padding: calc(var(--safe-top) + 12px) 16px 10px;
+  border-bottom: var(--border-dashed);
+  background: var(--paper-bright);
+}
+
+#app-title {
+  display: inline-block;
+  padding: 4px 12px;
+  border: var(--border-ink);
+  background: var(--paper);
+  font-family: var(--font-pixel);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- 3. LIVE VIEWPORT & VIEWFINDER ---------- */
+
+#app:not([data-view="result"]) > #live-layout {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3dvh, 28px);
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px 16px calc(var(--safe-bottom) + 16px);
+  overflow: hidden;
+}
+
+.camera-group {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  align-items: center;
+  width: var(--preview-width);
+  max-width: 100%;
+  min-height: 0;
+}
+
+#camera-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: var(--border-ink);
+  border-radius: var(--radius-panel);
+  background: var(--ink);
+  box-shadow: 0 5px 0 var(--ink), 0 12px 24px var(--gray-shadow);
+  overflow: hidden;
+}
+
+#camera-video { display: none; }
+
+#preview-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: min(64dvh, 540px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--ink);
+}
+
+#camera-message {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  color: var(--paper);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  pointer-events: none;
+}
+
+#countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  color: var(--paper-bright);
+  font-family: var(--font-pixel);
+  font-size: min(24vw, 132px);
+  font-weight: 800;
+  text-shadow: 3px 3px 0 var(--ink);
+  pointer-events: none;
+  opacity: 0;
+}
+
+#countdown.is-visible { animation: count-pop 0.9s steps(4, end) both; }
+
+@keyframes count-pop {
+  0%   { opacity: 0; transform: scale(1.25); }
+  25%  { opacity: 1; transform: scale(1); }
+  85%  { opacity: 1; transform: scale(0.98); }
+  100% { opacity: 0; transform: scale(0.92); }
+}
+
+#flash {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  background: var(--paper-bright);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#flash.is-on { opacity: 0.95; transition: none; }
+#flash:not(.is-on) { transition: opacity 0.24s ease-out; }
+
+/* Receipt-perforation progress bar */
+#shot-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px 8px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+}
+
+.progress-seg {
+  flex: 1 1 0;
+  height: 6px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  transition: background 0.16s ease;
+}
+
+.progress-seg.is-active {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--ink) 0 3px,
+    var(--paper) 3px 6px
+  );
+}
+
+.progress-seg.is-done { background: var(--ink); }
+
+/* ---------- 4. TACTILE HARDWARE DECK CONTROLS ---------- */
+
+#controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 7vw, 60px);
+  width: var(--preview-width);
+  max-width: 100%;
+  transition: opacity 0.2s ease, transform 0.25s var(--ease);
+}
+
+#app:not([data-view="live"]) #controls {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+#flip-camera-btn.home-icon-button,
+#drawer-toggle.home-icon-button {
+  display: grid;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: var(--border-ink);
+  border-radius: 50%;
+  background: var(--paper-bright);
+  color: var(--ink);
+  box-shadow: var(--shadow-tactile);
+  font-size: 0;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.12s ease;
+}
+
+#flip-camera-btn.home-icon-button svg,
+#drawer-toggle.home-icon-button svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+}
+
+#flip-camera-btn.home-icon-button:hover,
+#drawer-toggle.home-icon-button:hover { background: var(--paper-shade); }
+
+#flip-camera-btn.home-icon-button:active,
+#drawer-toggle.home-icon-button:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-tactile-press);
+}
+
+#flip-camera-btn:disabled,
+#shutter-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#shutter-btn {
+  position: relative;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-bright);
+  box-shadow: 0 4px 0 var(--ink);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+#shutter-btn::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+#shutter-btn:hover::before { background: var(--paper-shade); }
+
+#shutter-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+/* ---------- 5. STYLE DRAWER (THERMAL SPEC SLIP) ---------- */
+
+#drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: rgba(17, 17, 17, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s 0.2s;
+}
+
+#drawer-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease;
+}
+
+#drawer {
+  position: absolute;
+  z-index: 35;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: min(80dvh, 660px);
+  padding: 18px 18px calc(var(--safe-bottom) + 14px);
+  border-top: var(--border-ink);
+  background: var(--paper);
+  transform: translateY(102%);
+  visibility: hidden;
+  transition: transform 0.28s var(--ease), visibility 0s 0.28s;
+}
+
+#drawer::before {
+  content: "- - - - - - - - - -";
+  display: block;
+  margin-bottom: 10px;
+  color: var(--gray-perf);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+#drawer.is-open {
+  transform: translateY(0);
+  visibility: visible;
+  transition: transform 0.28s var(--ease);
+}
+
+.drawer-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: var(--border-dashed);
+}
+
+.drawer-head h2 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#drawer-close {
+  padding: 5px 12px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  box-shadow: 0 2px 0 var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#drawer-close:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.drawer-section {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: var(--border-dashed);
+}
+
+.drawer-section:last-child { border-bottom: 0; margin-bottom: 4px; }
+
+.drawer-section h3 {
+  margin-bottom: 8px;
+  color: var(--gray-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Shot selector inside drawer */
+#drawer #shot-selector {
+  display: inline-flex;
+  gap: 6px;
+}
+
+#drawer #shot-selector button {
+  min-width: 54px;
+  height: 34px;
+  padding: 0 12px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+#drawer #shot-selector button[aria-checked="true"],
+.option-row button[aria-checked="true"],
+.option-list button[aria-checked="true"] {
+  background: var(--ink);
+  color: var(--paper-bright);
+  box-shadow: none;
+}
+
+/* Frame & filter pickers */
+.option-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.option-row button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.option-row img {
+  display: block;
+  width: auto;
+  height: 96px;
+  max-width: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.1);
+}
+
+.option-list {
+  display: grid;
+  gap: 6px;
+}
+
+.option-list button {
+  padding: 10px 12px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* Drawer footer utility bar (Theme + Bluetooth printer status) */
+#drawer-utility-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: var(--border-ink);
+  background: var(--paper);
+}
+
+.drawer-utility-btn,
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  height: 36px;
+  padding: 0 12px;
+  border: var(--border-hairline);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  box-shadow: 0 2px 0 var(--ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.drawer-utility-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+#bt-pill-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pill-dot {
+  flex: 0 0 8px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-shade);
+}
+
+.pill.bt-connecting .pill-dot {
+  background: var(--ink);
+  animation: led-blink 0.8s steps(2, end) infinite;
+}
+
+.pill.bt-connected .pill-dot { background: var(--ink); }
+
+.pill.bt-error .pill-dot {
+  background: repeating-linear-gradient(45deg, var(--ink) 0 2px, var(--paper) 2px 4px);
+}
+
+.pill.bt-unsupported { opacity: 0.55; }
+
+@keyframes led-blink {
+  50% { opacity: 0.2; }
+}
+
+/* ---------- 6. PAPERANG PRINTER SLOT & RECEIPT FEED ---------- */
+
+#result {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(var(--gray-perf) 1px, transparent 1px) 0 0 / 16px 16px,
+    var(--paper);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.24s ease, visibility 0s 0.24s;
+}
+
+#app[data-view="result"] #result {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.24s ease;
+}
+
+#app[data-view="result"] #topbar {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 50;
+  pointer-events: none;
+}
+
+#result-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: calc(var(--safe-top) + 64px) 12px 6px;
+}
+
+#printer-slot {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(400px, calc(100vw - 28px));
+  height: var(--printer-total-height);
+  max-height: 100%;
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+/* Molded Paperang top housing */
+#printer-slot::before {
+  content: "PAPERANG // P1";
+  position: absolute;
+  z-index: 3;
+  inset: 0 auto auto 50%;
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 14px;
+  width: min(calc(var(--paper-render-width) + 84px), calc(100vw - 32px));
+  height: var(--printer-head-height);
+  transform: translateX(-50%);
+  border: var(--border-ink);
+  border-radius: 12px 12px 6px 6px;
+  background: var(--paper-bright);
+  box-shadow: 0 4px 0 var(--ink), 0 12px 24px var(--gray-shadow);
+  color: var(--gray-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* Dark serrated exit mouth */
+#printer-slot::after {
+  content: "";
+  position: absolute;
+  z-index: 6;
+  top: calc(var(--paper-slot-top) - 6px);
+  left: 50%;
+  width: min(calc(var(--paper-render-width) + 28px), calc(100vw - 54px));
+  height: 12px;
+  transform: translateX(-50%);
+  border: var(--border-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  pointer-events: none;
+}
+
+.printer-slot-bridge { display: none !important; }
+
+.printer-indicator {
+  position: absolute;
+  z-index: 6;
+  top: 12px;
+  right: calc((100% - min(calc(var(--paper-render-width) + 84px), calc(100vw - 32px))) / 2 + 14px);
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper-shade);
+  pointer-events: none;
+}
+
+#app.is-printing-out .printer-indicator {
+  background: var(--ink);
+  animation: led-blink 0.4s steps(2, end) infinite;
+}
+
+.paper-window {
+  position: absolute;
+  z-index: 4;
+  inset: var(--paper-slot-top) auto auto 50%;
+  width: var(--paper-render-width);
+  height: var(--paper-window-height);
+  overflow: hidden;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+#app.is-printed .paper-window { pointer-events: auto; }
+
+/* Thermal receipt roll with zig-zag bottom tear edge */
+#receipt-paper {
+  position: absolute;
+  z-index: 1;
+  inset: 0 auto auto 0;
+  width: 100%;
+  padding-bottom: 8px;
+  border-inline: 1px solid var(--gray-perf);
+  background: var(--paper-bright);
+  box-shadow: 0 10px 20px var(--gray-shadow);
+  transform: translateY(-100%);
+  transform-origin: top center;
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+#strip-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--paper-bright);
+  object-fit: contain;
+}
+
+#app.is-printing-out #receipt-paper { animation: pocket-paper-feed 2.65s both; }
+
+#app.is-printed #receipt-paper {
+  transform: translateY(var(--paper-final-offset));
+  pointer-events: auto;
+  cursor: zoom-in;
+}
+
+@keyframes pocket-paper-feed {
+  0%   { transform: translateY(-100%); animation-timing-function: steps(5, end); }
+  20%  { transform: translateY(-78%);  animation-timing-function: steps(6, end); }
+  45%  { transform: translateY(-52%);  animation-timing-function: steps(7, end); }
+  70%  { transform: translateY(-24%);  animation-timing-function: steps(6, end); }
+  90%  { transform: translateY(-4%);   animation-timing-function: var(--ease); }
+  100% { transform: translateY(var(--paper-final-offset)); }
+}
+
+/* ---------- 7. RESULT ACTION KEYS & TOAST ---------- */
+
+#result-actions {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: min(440px, 100%);
+  margin: 0 auto;
+  padding: 8px 16px calc(var(--safe-bottom) + 12px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+  pointer-events: none;
+}
+
+#app.is-printed #result-actions {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+#result-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 10px;
+  border: var(--border-ink);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  box-shadow: var(--shadow-tactile);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.12s ease;
+}
+
+#result-actions button:hover { background: var(--paper-shade); }
+
+#result-actions button:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-tactile-press);
+}
+
+#toast {
+  position: fixed;
+  z-index: 60;
+  bottom: calc(var(--safe-bottom) + 20px);
+  left: 50%;
+  max-width: calc(100% - 32px);
+  padding: 8px 14px;
+  border: var(--border-ink);
+  border-radius: var(--radius-key);
+  background: var(--ink);
+  color: var(--paper-bright);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- 8. FULLSCREEN RECEIPT INSPECTOR ---------- */
+
+.strip-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: rgba(247, 246, 242, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.strip-viewer-viewport {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  cursor: zoom-in;
+}
+
+.strip-viewer-paper {
+  display: block;
+  width: fit-content;
+  max-width: var(--viewer-max-width);
+  max-height: var(--viewer-max-height);
+  padding-bottom: 8px;
+  border-inline: 1px solid var(--gray-perf);
+  background: var(--paper-bright);
+  box-shadow: 0 16px 40px var(--gray-shadow);
+  -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / 12px 100%;
+  will-change: transform;
+}
+
+.strip-viewer-paper.is-zoomed { cursor: grab; }
+.strip-viewer-paper.is-zoomed:active { cursor: grabbing; }
+
+.strip-viewer-canvas {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: var(--viewer-max-width);
+  max-height: var(--viewer-max-height);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.strip-viewer-close {
+  position: fixed;
+  top: calc(var(--safe-top) + 14px);
+  right: 16px;
+  z-index: 2;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: var(--border-ink);
+  border-radius: var(--radius-key);
+  background: var(--paper-bright);
+  box-shadow: var(--shadow-tactile);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.strip-viewer-close:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-tactile-press);
+}
+
+/* ---------- 9. INVERTED HIGH-CONTRAST DARK MODE ---------- */
+
+#app[data-theme="dark"],
+.strip-viewer[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #161615;
+  --paper-bright: #222220;
+  --paper-shade: #0e0e0d;
+  --ink: #f2f1ec;
+  --ink-soft: #c9c8c1;
+  --gray-muted: #989790;
+  --gray-perf: #52514c;
+  --gray-shadow: rgba(0, 0, 0, 0.45);
+}
+
+.strip-viewer[data-theme="dark"] { background: rgba(22, 22, 21, 0.92); }
+
+/* Keep printed thermal paper physically off-white in dark mode */
+#app[data-theme="dark"] #receipt-paper,
+#app[data-theme="dark"] #strip-canvas,
+.strip-viewer[data-theme="dark"] .strip-viewer-paper,
+.strip-viewer[data-theme="dark"] .strip-viewer-canvas { background: #f7f6f2; }
+
+/* ---------- 10. RESPONSIVE & REDUCED MOTION ---------- */
+
+@media (min-width: 768px) {
+  #drawer-backdrop { background: transparent; pointer-events: none; }
+  #drawer-backdrop.is-open { opacity: 0; pointer-events: auto; }
+
+  #drawer {
+    inset: 16px 16px 16px auto;
+    width: min(var(--drawer-w), calc(100vw - 32px));
+    max-height: none;
+    border: var(--border-ink);
+    border-radius: var(--radius-panel);
+    box-shadow: 0 6px 0 var(--ink);
+    transform: translateX(calc(100% + 24px));
+  }
+
+  #drawer.is-open { transform: translateX(0); }
+
+  #result-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(560px, 100%);
+  }
+}
+
+@media (max-width: 420px) {
+  :root { --preview-width: min(650px, calc(100vw - 24px), 64dvh); }
+  #controls { gap: 28px; }
+  #flip-camera-btn.home-icon-button,
+  #drawer-toggle.home-icon-button { width: 44px; height: 44px; flex-basis: 44px; }
+  #shutter-btn { width: 64px; height: 64px; flex-basis: 64px; }
+}
+
+@media (max-height: 680px) {
+  #app:not([data-view="result"]) > #live-layout { gap: 12px; }
+  #shutter-btn { width: 58px; height: 58px; flex-basis: 58px; }
+  #result-actions button { height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #app.is-printing-out #receipt-paper {
+    animation: none !important;
+    transform: translateY(var(--paper-final-offset));
+  }
+}

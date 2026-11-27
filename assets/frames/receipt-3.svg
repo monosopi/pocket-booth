@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="888" viewBox="0 0 384 888" shape-rendering="crispEdges" font-family="IBM Plex Mono, Menlo, Consolas, Courier New, monospace" fill="#000">
+<rect id="paper" width="384" height="888" fill="#fff"/>
+<text id="header-1" x="16" y="40" font-size="17" font-weight="700" text-anchor="start">POCKET BOOTH // REC. #0042</text>
+<text id="header-2" x="16" y="64" font-size="17" font-weight="700" text-anchor="start">DATE: NOV 23 ’26   TIME: 11:50AM</text>
+<g id="photo-01"><rect x="54" y="86" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="181.0" font-size="14" text-anchor="middle">PHOTO 01</text></g>
+<g id="photo-02"><rect x="54" y="288" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="383.0" font-size="14" text-anchor="middle">PHOTO 02</text></g>
+<g id="photo-03"><rect x="54" y="490" width="276" height="180" fill="#fff" stroke="#000" stroke-width="2"/><text x="192.0" y="585.0" font-size="14" text-anchor="middle">PHOTO 03</text></g>
+<text x="16" y="714" font-size="16" font-weight="400" text-anchor="start">01 CANDID SMILES</text>
+<text x="368" y="714" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<text x="16" y="736" font-size="16" font-weight="400" text-anchor="start">02 GOOD TIMES</text>
+<text x="368" y="736" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<text x="16" y="758" font-size="16" font-weight="400" text-anchor="start">03 CORE MEMORY</text>
+<text x="368" y="758" font-size="16" font-weight="400" text-anchor="end">0.00</text>
+<line x1="16" y1="768" x2="368" y2="768" stroke="#000" stroke-width="2"/>
+<text x="16" y="798" font-size="19" font-weight="700" text-anchor="start">TOTAL:</text>
+<text x="368" y="798" font-size="19" font-weight="700" text-anchor="end">PRICELESS</text>
+<path id="barcode" d="M72 818h2v32h-2zM76 818h3v32h-3zM81 818h3v32h-3zM85 818h2v32h-2zM89 818h3v32h-3zM93 818h1v32h-1zM95 818h1v32h-1zM99 818h1v32h-1zM103 818h2v32h-2zM106 818h2v32h-2zM110 818h1v32h-1zM113 818h2v32h-2zM117 818h1v32h-1zM121 818h1v32h-1zM123 818h1v32h-1zM127 818h1v32h-1zM130 818h1v32h-1zM132 818h1v32h-1zM135 818h1v32h-1zM138 818h1v32h-1zM141 818h1v32h-1zM144 818h1v32h-1zM147 818h2v32h-2zM151 818h1v32h-1zM154 818h2v32h-2zM158 818h1v32h-1zM161 818h1v32h-1zM164 818h1v32h-1zM166 818h2v32h-2zM170 818h1v32h-1zM173 818h1v32h-1zM176 818h2v32h-2zM180 818h1v32h-1zM184 818h2v32h-2zM188 818h1v32h-1zM191 818h1v32h-1zM194 818h2v32h-2zM197 818h2v32h-2zM202 818h1v32h-1zM206 818h2v32h-2zM209 818h2v32h-2zM212 818h3v32h-3zM217 818h2v32h-2zM221 818h1v32h-1zM224 818h2v32h-2zM228 818h2v32h-2zM232 818h2v32h-2zM236 818h2v32h-2zM239 818h2v32h-2zM243 818h1v32h-1zM245 818h2v32h-2zM248 818h1v32h-1zM251 818h2v32h-2zM255 818h1v32h-1zM258 818h1v32h-1zM260 818h1v32h-1zM263 818h1v32h-1zM266 818h1v32h-1zM269 818h3v32h-3zM274 818h2v32h-2zM278 818h3v32h-3zM282 818h1v32h-1zM286 818h1v32h-1zM289 818h3v32h-3zM294 818h1v32h-1zM298 818h3v32h-3zM304 818h1v32h-1zM306 818h3v32h-3zM310 818h2v32h-2z" fill="#000"/>
+<text id="serial" x="192.0" y="862" font-size="9" font-weight="400" text-anchor="middle">NO. 20261123-0042</text>
+</svg>
